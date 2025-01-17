@@ -16,10 +16,10 @@ type UserAction = {
 
 const initialState: UserState = {
   user: {
-    ID: 0,
+    id: 0,
     username: '',
-    password: '',
-    avator: '',
+    email: '',
+    avatarUrl: '',
   },
   auth: false,
 }

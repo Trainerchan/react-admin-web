@@ -1,6 +1,17 @@
 import { ApiMap } from "@/types/api";
 
 export const apiMap: ApiMap = {
+  getCaptcha: {
+    url: '/public/captcha',
+    method: 'GET',
+  },
+  sendEmailVerifyCode: {
+    url: '/public/emailcode',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  },
   adminLogin: {
     url: '/admin/login',
     method: 'POST',
@@ -8,6 +19,11 @@ export const apiMap: ApiMap = {
       'Content-Type': 'application/json'
     },
     saveToken: true
+  },
+  logout: {
+    url: '/admin/logout',
+    method: 'POST',
+    withToken: true
   },
   getCategoryList: {
     url: '/class/class_list',
@@ -49,22 +65,46 @@ export const apiMap: ApiMap = {
     }
   },
   getUserList: {
-    url: '/user/user_list',
-    method: 'POST',
+    url: '/user',
+    method: 'GET',
     withToken: true
   },
   deleteUserById: {
-    url: '/user/user_del',
-    method: 'POST',
-    withToken: true,
-  },
-  updateAndAddUser: {
-    url: '/user/user_save',
-    method: 'POST',
+    url: '/user',
+    method: 'DELETE',
     withToken: true,
     headers: {
       'Content-Type': 'application/json'
     }
   },
+  updateAndAddUser: {
+    url: '/user',
+    method: 'PUT',
+    withToken: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  },
+  getArticleList: {
+    url: '/article/list',
+    method: 'GET',
+    withToken: true
+  },
+  deleteArticleByIds: {
+    url: '/article/delete',
+    method: 'DELETE',
+    withToken: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  },
+  addArticle: {
+    url: '/article/add',
+    method: 'POST',
+    withToken: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
 };
 

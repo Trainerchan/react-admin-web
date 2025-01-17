@@ -1,5 +1,5 @@
 import { AsideItem } from "@/types/aside";
-import { TeamOutlined, RobotOutlined } from "@ant-design/icons";
+import { TeamOutlined, RobotOutlined, BookOutlined } from "@ant-design/icons";
 
 export const asideList: AsideItem[] = [
   {
@@ -17,6 +17,30 @@ export const asideList: AsideItem[] = [
         path: 'change',
         name: 'userChange',
         text: '用户修改',
+        isNonMenu: true
+      }
+    ]
+  },
+  {
+    icon: BookOutlined,
+    path: 'article',
+    name: 'article',
+    text: '文章管理',
+    children: [
+      {
+        path: 'view',
+        name: 'articleView',
+        text: '文章列表'
+      },
+      {
+        path: 'add',
+        name: 'articleAdd',
+        text: '文章添加'
+      },
+      {
+        path: 'change',
+        name: 'articleChange',
+        text: '文章修改',
         isNonMenu: true
       }
     ]

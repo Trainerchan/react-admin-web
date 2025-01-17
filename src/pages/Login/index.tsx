@@ -3,6 +3,7 @@ import useUserStore from '@/store';
 import {
   LockOutlined,
   UserOutlined,
+  KeyOutlined,
 } from '@ant-design/icons';
 import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -10,14 +11,15 @@ import styles from './login.module.css';
 import { lodash } from '@/utils/common';
 import { LoginForm } from '@/types/user';
 import { useEffect } from 'react';
+import VerifyButton from '@/components/VerifyButton';
 
 
 export default function Login() {
   const navigate = useNavigate();
   const [form] = Form.useForm<LoginForm>();
+  const verifyEmail = Form.useWatch('email', form);
   const setUserStore = useUserStore((state) => state.setUser);
   const setUserAuth = useUserStore((state) => state.setAuth);
-
   // submit handler
   const handlerSubmit = lodash.debounce(async (values) => {
     try {
@@ -25,9 +27,8 @@ export default function Login() {
         reqType: 'adminLogin',
         data: values
       });
-      if (res.data === 200) {
-        setUserStore(res.response);
-
+      if (res.code === 200) {
+        setUserStore(res.data);
         setUserAuth(true)
         message.success(res.message);
         navigate('/user/view');
@@ -57,10 +58,10 @@ export default function Login() {
       >
         <h1 className="mb-5 text-center text-xl font-bold">管 理 员 登 录</h1>
         <Form.Item<LoginForm>
-          name="username"
-          rules={[{ required: true, message: '用户名不能为空.' }]}
+          name="email"
+          rules={[{ required: true, message: '邮箱不能为空.' }]}
         >
-          <Input prefix={<UserOutlined />} placeholder="管理员用户名." />
+          <Input prefix={<UserOutlined />} placeholder="管理员邮箱." />
         </Form.Item>
 
         <Form.Item<LoginForm>
@@ -73,6 +74,15 @@ export default function Login() {
             autoComplete="off"
             placeholder="管理员密码"
           />
+        </Form.Item>
+        <Form.Item<LoginForm>
+          name="verifyCode"
+          rules={[{ required: true, message: '验证码不能为空.' }]}
+        >
+          <div className='flex gap-x-2'>
+            <Input className='w-3/5' prefix={<KeyOutlined />} placeholder="验证码" />
+            <VerifyButton className='flex-1' email={verifyEmail} codeType='LOGIN' />
+          </div>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block>

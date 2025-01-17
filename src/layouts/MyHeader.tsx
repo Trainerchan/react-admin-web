@@ -5,6 +5,8 @@ import { message, MenuProps, Dropdown, Avatar, Modal } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { useNavigate } from "react-router-dom";
 import LogoImg from '@/assets/logo.jpg'
+import { myRequest } from "@/api/request";
+import { Session } from "@/utils/storage";
 
 export default function MyHeader() {
 
@@ -14,32 +16,30 @@ export default function MyHeader() {
 
   // 注销登录
   const logout = lodash.debounce(async () => {
-    // try {
-    //   const res = await myRequest({
-    //     reqType: 'logout',
-    //   });
-    //   if (res.data === 200) {
-    //     message.success(res.message);
-    //     navigate('/login');
-    //   } else {
-    //     message.error(res.message);
-    //   }
-    // } catch (error) {
-    //   console.log('注销出错: ', error);
-    // }
     Modal.confirm({
       title: '提示',
       content: '确认注销？',
       okText: '确认',
       cancelText: '取消',
-      onOk: (close) => {
-        resetUser()
-        message.success('注销成功')
-        close()
-        navigate('/login');
+      onOk: async (close) => {
+        try {
+          const res = await myRequest({
+            reqType: 'logout',
+          });
+          if (res.code === 200) {
+            resetUser()
+            Session.clear()
+            message.success(res.message);
+            close()
+            navigate('/login');
+          } else {
+            message.error(res.message);
+          }
+        } catch (error) {
+          console.log('注销出错: ', error);
+        }
       }
     })
-
   }, 300);
 
 
@@ -60,7 +60,7 @@ export default function MyHeader() {
       </div>
       <Dropdown menu={{ items: dropItems }}>
         <div className="flex items-center gap-x-3">
-          <Avatar src={userData.avator} />
+          <Avatar src={userData.avatarUrl} />
           <span className="text-slate-100">{userData.username}</span>
           <DownOutlined className="text-slate-100" />
         </div>

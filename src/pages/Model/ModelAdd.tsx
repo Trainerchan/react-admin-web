@@ -31,8 +31,8 @@ export default function ModelAdd() {
       const res = await myRequest({
         reqType: 'getCategoryList'
       })
-      if (res.data === 200) {
-        setOptionList(res.response.map((v) => {
+      if (res.code === 200) {
+        setOptionList(res.data.map((v) => {
           return {
             value: v.ID,
             label: v.name
@@ -52,7 +52,7 @@ export default function ModelAdd() {
         reqType: 'updateAndAddModel',
         data: values
       })
-      if (res.data === 200) {
+      if (res.code === 200) {
         message.success(res.message)
         navigate('/model/view')
       } else {
@@ -102,7 +102,7 @@ export default function ModelAdd() {
   const onUploadChange: UploadProps<UploadResponse>['onChange'] = ({ fileList }) => {
     fileList = fileList.map((file) => {
       if (file.response) {
-        file.url = file.response.response.url
+        file.url = file.response.data.url
       }
       return file
     })
@@ -115,7 +115,7 @@ export default function ModelAdd() {
   }
 
   return (
-    <div className="p-4 bg-white">
+    <div>
       <Form
         form={form}
         onFinish={onSubmit}

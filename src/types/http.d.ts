@@ -1,12 +1,17 @@
 export type HttpResponse<T> = {
-  data: number;
+  code: number;
   message: string;
-  response: T;
+  data: T;
 };
 
 export type ErrorResponse = {
-  data: number;
+  code: number;
   message: string;
 };
 
 export type UploadResponse = HttpResponse<{ url: string }>
+
+export type CaptchaResponseData = {
+  captchaId: string;
+  imageBase64: string;
+}

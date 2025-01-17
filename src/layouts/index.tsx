@@ -12,7 +12,7 @@ export default function DashboardLayout() {
         <MyAside />
         <Layout className="p-4">
           <Content
-            className={`overflow-auto`}
+            className='overflow-auto bg-white p-4'
           >
             <WrapperRouter />
           </Content>

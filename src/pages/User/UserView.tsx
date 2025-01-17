@@ -14,9 +14,9 @@ export default function UserView() {
       const res = await myRequest({
         reqType: 'getUserList'
       })
-      if (res.data === 200) {
-        setDataList(res.response.map((v) => {
-          v.key = v.ID
+      if (res.code === 200) {
+        setDataList(res.data.map((v) => {
+          v.key = v.id
           return v
         }))
       } else {
@@ -55,10 +55,10 @@ export default function UserView() {
       const res = await myRequest({
         reqType: 'deleteUserById',
         params: {
-          id: value.ID
+          id: value.id
         }
       })
-      if (res.data === 200) {
+      if (res.code === 200) {
         await getList()
         message.success(res.message)
       } else {

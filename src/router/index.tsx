@@ -53,6 +53,7 @@ const routes: RouteRecordRaw[] = asideList.map((v) => {
 })
 
 export function UserAuth({ children }: { children: JSX.Element }) {
+  // 此处验证存在问题，后面需要优化成请求验证
   const auth = useUserStore((state) => state.auth)
   const location = useLocation()
   if (location.pathname === '/' && !auth) {

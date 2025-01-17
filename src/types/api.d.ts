@@ -1,9 +1,15 @@
 import { Category, CategoryForm } from "./category";
+import { CaptchaResponseData } from "./http";
 import { Model, ModelForm } from "./model";
 import { AdminUser, LoginForm, User, UserForm } from "./user";
+import { VerifyCodeParams } from "./verify";
+import { ArticleForm } from "./article";
 
 export interface ApiParams {
+  getCaptcha: { response: CaptchaResponseData };
+  sendEmailVerifyCode: { data: VerifyCodeParams, response: any };
   adminLogin: { data: LoginForm, response: AdminUser };
+  logout: { response: any };
   getCategoryList: { response: Category[] };
   updateAndAddCategory: { data: CategoryForm, response: any };
   deleteCategory: { params: { id: number }, response: any };
@@ -13,7 +19,10 @@ export interface ApiParams {
   updateAndAddModel: { data: ModelForm, response: any };
   getUserList: { response: User[] };
   deleteUserById: { params: { id: number }, response: any };
-  updateAndAddUser: { data: UserForm, response: any }
+  updateAndAddUser: { data: UserForm, response: any };
+  getArticleList: { response: Article[] };
+  deleteArticleByIds: { data: { ids: number[] }, response: any };
+  addArticle: { data: ArticleForm, response: any };
 }
 
 export type ApiMap = {

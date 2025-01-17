@@ -23,7 +23,7 @@ export default function ModelView() {
           id: categoryId
         }
       });
-      if (res.data === 200) {
+      if (res.code === 200) {
         setDataList(
           res.response.map((v) => {
             v.key = v.ID;
@@ -43,7 +43,7 @@ export default function ModelView() {
       const res = await myRequest({
         reqType: "getCategoryList",
       });
-      if (res.data === 200) {
+      if (res.code === 200) {
         await getList(res.response[0].ID)
         setCategoryList(
           res.response.map((v) => {
@@ -140,7 +140,7 @@ export default function ModelView() {
         reqType: "deleteModelById",
         params: { id: value.ID },
       });
-      if (res.data === 200) {
+      if (res.code === 200) {
         await getList(selectedValue!);
         message.success(res.message);
       } else {

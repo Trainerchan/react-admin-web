@@ -1,5 +1,6 @@
-import { apiMap, ApiType } from '@/config/api.config';
+import { apiMap } from '@/config/api.config';
 import { HEADER_TOKEN_KEY, TOKEN_KEY } from '@/config/base.config';
+import { ApiType } from '@/types/api';
 import { ErrorResponse } from '@/types/http';
 import { Session } from '@/utils/storage';
 import { message } from 'antd';
@@ -42,7 +43,7 @@ http.interceptors.response.use(
   function (config) {
     console.log('resInter->', config);
     if (reqMap.saveToken) {
-      Session.set(TOKEN_KEY, config.data.data.token || config.headers['token']);
+      Session.set(TOKEN_KEY, config.data.data.token || config.headers['token'] || config.headers['authorization']);
       if (config.data.data.token) {
         delete config.data.data.token
       }
@@ -51,9 +52,8 @@ http.interceptors.response.use(
   },
   function (err: AxiosError) {
     const errRes = err.response?.data as ErrorResponse;
-    console.log('resError->', errRes);
     if (errRes && errRes.message) {
-      message.error('Error ' + errRes.data.toString() + '. ' + errRes.message);
+      message.error('Error ' + errRes.code.toString() + '. ' + errRes.message);
     } else {
       message.error(err.message);
     }

@@ -9,8 +9,8 @@ export default defineConfig(() => {
       port: 5277,
       proxy: {
         '/api': {
-          // target: 'https://backendAddress:port',
-          target: 'https://wacb.pw:9988',
+          target: 'http://127.0.0.1:5733',
+          // target: 'https://wacb.pw:9988',
           changeOrigin: true,
           // rewrite: (p: string) => p.replace(/^\/api/, '')
         }

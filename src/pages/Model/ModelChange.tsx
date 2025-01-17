@@ -32,7 +32,7 @@ export default function ModelChange() {
       const res = await myRequest({
         reqType: 'getCategoryList'
       })
-      if (res.data === 200) {
+      if (res.code === 200) {
         setOptionList(res.response.map((v) => {
           return {
             value: v.ID,
@@ -56,7 +56,7 @@ export default function ModelChange() {
           ...values
         }
       })
-      if (res.data === 200) {
+      if (res.code === 200) {
         message.success(res.message)
         navigate('/model/view')
       } else {
@@ -119,7 +119,7 @@ export default function ModelChange() {
   }
 
   return (
-    <div className="p-4 bg-white">
+    <div>
       <Form
         form={form}
         onFinish={onSubmit}

@@ -1,37 +1,35 @@
 export type LoginForm = {
-  username: string
+  email: string
   password: string
+  verifyCode: string
 }
 
 export type AdminUser = {
-  ID: number
-  CreatedAt?: string
-  UpdatedAt?: string
-  DeletedAt?: string
+  id: number
+  createdAt?: string
+  updatedAt?: string
+  deletedAt?: string
   username: string
-  password: string
-  avator: string
+  email: string
+  avatarUrl: string
 }
 
 export type User = {
-  ID: number
+  id: number
   key?: string | number
   openid: string
-  avator?: string
+  email: string
+  avatarUrl?: string
   username: string
-  password: string
   phone: string
-  count: number
-  invitation_code: string
-  CreatedAt?: string
-  UpdatedAt?: string
-  DeletedAt?: string
+  createdAt?: string
+  updatedAt?: string
+  deletedAt?: string
 }
 
 export type UserForm = {
   id?: number;
   username: string
   phone: string
-  count: number
-  invitation_code: string
+  email: string
 }

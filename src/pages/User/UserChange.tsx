@@ -14,12 +14,11 @@ export default function UserChange() {
       const res = await myRequest({
         reqType: 'updateAndAddUser',
         data: {
-          id: state.ID,
+          id: state.id,
           ...values,
-          count: Number(values.count),
         }
       })
-      if (res.data === 200) {
+      if (res.code === 200) {
         message.success(res.message)
         navigate('/user/view')
       } else {
@@ -37,7 +36,7 @@ export default function UserChange() {
   }, [state, form])
 
   return (
-    <div className="p-4 bg-white">
+    <div>
       <Form
         form={form}
         onFinish={onSubmit}
